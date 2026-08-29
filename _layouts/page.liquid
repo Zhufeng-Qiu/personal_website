@@ -1,0 +1,71 @@
+---
+layout: default
+---
+<style type="text/css">
+  .project-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    gap: 0.45rem;
+    padding: 0 0.9rem;
+    border-radius: 0.3rem;
+    background: var(--global-theme-color);
+    color: #fff !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none !important;
+    transition: background-color 0.15s ease;
+  }
+  .project-action span,
+  .project-action i,
+  .project-action i::before {
+    color: #fff !important;
+  }
+  .project-action:hover {
+    background: #111;
+    color: #fff !important;
+  }
+  .project-action-details i {
+    font-size: 0.8rem;
+  }
+  .project-action-github i {
+    font-size: 1rem;
+  }
+</style>
+{% if page._styles %}
+  <style type="text/css">
+    {{ page._styles }}
+  </style>
+{% endif %}
+
+<div class="post">
+  <header class="post-header">
+    {% if page.collection == 'projects' %}
+      <p class="project-back" style="margin: 0 0 0.75rem">
+        <a class="project-action project-action-details" href="{{ '/projects/' | relative_url }}">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Projects</span>
+        </a>
+      </p>
+    {% endif %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <p class="post-description">{{ page.description }}</p>
+  </header>
+
+  <article>
+    {{ content }}
+  </article>
+
+  {% if page.related_publications %}
+    <h2>References</h2>
+    <div class="publications">
+      {% bibliography --cited_in_order %}
+    </div>
+  {% endif %}
+
+  {% if site.plugins contains 'al_comments' %}
+    {% include plugins/al_comments.liquid %}
+  {% endif %}
+</div>

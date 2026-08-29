@@ -2,33 +2,64 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: GPU systems · collective communication · high-performance LLM inference
 
 profile:
   align: right
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: false
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>Seattle, WA</p>
+    <p><a href="mailto:zhufqiu@gmail.com">zhufqiu@gmail.com</a></p>
 
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: false
+social: true
 
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  enabled: false
+  scrollable: true
+  limit: 5
 
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 3 # leave blank to include all the blog posts
+  enabled: false
+  scrollable: true
+  limit: 3
+
+_styles: |
+  @media (min-width: 576px) {
+    .profile {
+      width: 20%;
+      max-width: 168px;
+    }
+  }
+  .profile img {
+    max-width: 168px;
+  }
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](https://www.reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hello — I'm Zhufeng Qiu, and you can also call me **Zephyr**.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I hold an M.S. in Computer Science from **Northeastern University** (GPA 4.0),
+an M.S. in Applied Data Science from **University of Southern California**, and a
+B.S. in Geographical Information Science from **Wuhan University**. Before
+returning to school I spent a year and a half at **NSFOCUS** building
+Kafka/Elasticsearch security-data pipelines and Spark batch workflows serving
+100+ enterprise clients at roughly 5M records a day, and I have since been a
+teaching assistant for Algorithms and Parallel Data Processing at Northeastern.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I'm applying to **Ph.D. programs in HPC, ML systems, AI infrastructure, and
+parallel computing**. If you'd like to talk about research or a possible
+collaboration, email is the fastest way to reach me.
+
+Most of my recent work is the same exercise repeated: take one computation,
+implement it across every execution model I can reach — serial, threaded,
+distributed, single-GPU, multi-GPU — hold the numerics exactly constant, and
+find out what the hardware actually charges for each choice. The interesting
+results are usually the ones that came out the wrong way round.
+
+Two of them recently did. A lossless 3× compression of an NCCL `AllReduce`
+payload bought **4% on NVLink and 55% on PCIe** — same binary, opposite
+verdicts, because the regime decides and not the interconnect's name. And 4-bit
+quantization of an 8B model turned out to buy *capacity, not speed*: NF4 decode
+runs 1.69× **slower** than fp16 while moving a quarter of the bytes. Both are
+written up in [projects](/projects/), with the code and raw measurements public.

@@ -1,0 +1,102 @@
+{% comment %}
+  Site override of al_folio_cv projects.liquid.
+  Date badges keep the month, not just the year.
+{% endcomment %}
+
+{% assign month_names = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec" | split: "," %}
+
+<ul class="card-text font-weight-light list-group list-group-flush">
+  {% for entry in entries %}
+    <li class="list-group-item">
+      {% capture start_date %}
+        {% if entry.start_date %}{{ entry.start_date }}{% elsif entry.startDate %}{{ entry.startDate }}{% endif %}
+      {% endcapture %}
+      {% assign start_date = start_date | strip %}
+      {% capture end_date %}
+        {% if entry.end_date %}{{ entry.end_date }}{% elsif entry.endDate %}{{ entry.endDate }}{% endif %}
+      {% endcapture %}
+      {% assign end_date = end_date | strip %}
+      {% capture point_date %}
+        {% if entry.date %}{{ entry.date }}{% elsif entry.releaseDate %}{{ entry.releaseDate }}{% endif %}
+      {% endcapture %}
+      {% assign point_date = point_date | strip %}
+
+      {% assign date = null %}
+      {% if start_date != '' %}
+        {% assign s_parts = start_date | split: "-" %}
+        {% assign s_year = s_parts[0] %}
+        {% if s_parts.size > 1 %}
+          {% assign s_mi = s_parts[1] | plus: 0 | minus: 1 %}
+          {% assign s_label = month_names[s_mi] | append: " " | append: s_year %}
+        {% else %}
+          {% assign s_label = s_year %}
+        {% endif %}
+        {% if end_date != '' %}
+          {% assign e_parts = end_date | split: "-" %}
+          {% assign e_year = e_parts[0] %}
+          {% if e_parts.size > 1 %}
+            {% assign e_mi = e_parts[1] | plus: 0 | minus: 1 %}
+            {% assign e_label = month_names[e_mi] | append: " " | append: e_year %}
+          {% else %}
+            {% assign e_label = e_year %}
+          {% endif %}
+        {% else %}
+          {% assign e_label = "Present" %}
+        {% endif %}
+        {% capture date %}{{ s_label }}<br>– {{ e_label }}{% endcapture %}
+      {% elsif point_date != '' %}
+        {% assign p_parts = point_date | split: "-" %}
+        {% assign p_year = p_parts[0] %}
+        {% if p_parts.size > 1 %}
+          {% assign p_mi = p_parts[1] | plus: 0 | minus: 1 %}
+          {% assign date = month_names[p_mi] | append: " " | append: p_year %}
+        {% else %}
+          {% assign date = p_year %}
+        {% endif %}
+      {% endif %}
+
+      {% capture entry_body %}
+        {% if entry.url %}
+          <h6 class="title font-weight-bold">
+            <a href="{{ entry.url }}" target="_blank">{{ entry.name }}</a>
+          </h6>
+        {% else %}
+          <h6 class="title font-weight-bold">{{ entry.name }}</h6>
+        {% endif %}
+
+        {% if entry.summary %}
+          <p>{{ entry.summary | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+        {% endif %}
+
+        {% if entry.highlights %}
+          <ul class="items">
+            {% for item in entry.highlights %}
+              <li>
+                <span class="item">{{ item | markdownify | remove: '<p>' | remove: '</p>' }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endcapture %}
+
+      {% if date %}
+        <div class="row">
+          <div class="col-xs-3 col-sm-3 col-md-3 text-center date-column" style="width: 7.5rem">
+            <table class="table-cv">
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 6.5rem; white-space: normal; line-height: 1.25">{{ date }}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-9 col-sm-9 col-md-9 mt-2 mt-md-0">{{ entry_body }}</div>
+        </div>
+      {% else %}
+        {{ entry_body }}
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
