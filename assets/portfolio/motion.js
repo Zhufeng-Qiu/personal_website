@@ -271,7 +271,7 @@
   function initAccordions() {
     document.querySelectorAll("details[data-accordion]").forEach((details) => {
       const summary = details.querySelector("summary");
-      const body = details.querySelector(".timeline-body, .accordion-body");
+      const body = details.querySelector(".accordion-body");
       if (!summary || !body) return;
       let anim = null;
       summary.addEventListener("click", (e) => {

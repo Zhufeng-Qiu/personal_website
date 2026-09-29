@@ -35,7 +35,10 @@ test("new home, original Academic, and contact routes", async ({ page, baseURL }
   await expect(origins.nth(1)).toHaveAttribute("href", /\/projects\/boundrelay\/$/);
   await expect(page.locator('[data-ratio="pipeline"]')).toHaveText("1.97×");
   await expect(page.locator('[data-ratio="moosefs"]')).toHaveText("1.59×");
-  await expect(page.locator("#experience details")).toHaveCount(3);
+  // experience is shown open: no disclosure widgets
+  await expect(page.locator("#experience details")).toHaveCount(0);
+  await expect(page.locator("#experience .timeline-row")).toHaveCount(3);
+  await expect(page.locator("#experience .timeline-points li").first()).toBeVisible();
   // education is shown flat: no disclosure widgets, coursework visible
   await expect(page.locator("#education details")).toHaveCount(0);
   await expect(page.locator("#education .education-row")).toHaveCount(3);
@@ -54,8 +57,13 @@ test("new home, original Academic, and contact routes", async ({ page, baseURL }
   // habits are their own section 06
   await expect(page.locator("#life .eyebrow").first()).toContainText("06");
   await expect(page.locator("#life .habit")).toHaveCount(5);
-  await page.locator("#experience summary").first().click();
-  await expect(page.locator("#experience details").first()).toHaveAttribute("open", "");
+  // one employer, two teaching roles, listed separately with their own dates
+  const ta = page.locator("#experience .timeline-row", { hasText: "Northeastern" });
+  await expect(ta.locator(".timeline-date")).toHaveText("Jan 2024 — May 2025");
+  await expect(ta.locator(".role")).toHaveCount(2);
+  await expect(ta.locator(".role").first()).toBeVisible();
+  await expect(ta.locator(".role-title")).toHaveText(["Teaching Assistant — Parallel Data Processing", "Teaching Assistant — Algorithms"]);
+  await expect(ta.locator(".role-date")).toHaveText(["Jan 2025 — May 2025", "Jan 2024 — May 2024"]);
   await expect(page.locator("#contact h2")).toContainText("Talk about research?");
   await expect(page.locator('#contact a[href="mailto:zhufqiu@gmail.com"]')).toHaveCount(2);
   await page.locator(".academic-link").click();

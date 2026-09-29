@@ -27,6 +27,11 @@ test("CV keeps research dates aligned and BoundRelay first", async ({ page, base
   await expect(second.locator('a[href="https://github.com/sgl-project/sglang-omni/pull/2296"]').first()).toBeVisible();
   await expect(second).toContainText("30-second English audio admission");
 
+  const experience = page.locator(".cv > .card").filter({ has: page.getByRole("heading", { name: "Experience", exact: true }) });
+  const teaching = experience.locator(".list-group-item").filter({ hasText: "Teaching Assistant" });
+  await expect(teaching.locator(".badge")).toHaveText("2024 - 2025");
+  await expect(teaching.locator("li")).toHaveText([/Parallel Data Processing \(Jan–May 2025\)/, /Algorithms \(Jan–May 2024\)/]);
+
   // a 2026 online course has its own dated section, not a line under a 2025 degree
   const education = page.locator(".cv > .card").filter({ has: page.getByRole("heading", { name: "Education", exact: true }) });
   await expect(education).not.toContainText("Coursera");

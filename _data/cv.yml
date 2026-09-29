@@ -82,12 +82,24 @@ cv:
           - Developed enterprise HR and digital-commerce microservices with Spring Boot/Spring Cloud, integrating authenticated APIs, relational/document data stores, AWS S3, and RabbitMQ-backed asynchronous workflows.
 
       - company: Northeastern University, Khoury College of Computer Sciences
-        position: Teaching Assistant — Algorithms and Parallel Data Processing
+        position: Teaching Assistant
         location: Seattle, WA, US
         start_date: 2024-01
         end_date: 2025-05
+        # One employer, two courses. `roles` is shown LinkedIn-style on the new home page;
+        # `highlights` carries the same two roles on the academic CV. Keep them in step.
+        roles:
+          - title: Teaching Assistant — Parallel Data Processing
+            start_date: 2025-01
+            end_date: 2025-05
+            summary: Supported graduate coursework in distributed data processing, covering MapReduce, Spark, and parallel execution models.
+          - title: Teaching Assistant — Algorithms
+            start_date: 2024-01
+            end_date: 2024-05
+            summary: Supported graduate coursework in algorithms.
         highlights:
-          - Supported graduate coursework in algorithms and distributed data processing, covering MapReduce, Spark, and parallel execution models.
+          - "Parallel Data Processing (Jan–May 2025): supported graduate coursework in distributed data processing, covering MapReduce, Spark, and parallel execution models."
+          - "Algorithms (Jan–May 2024): supported graduate coursework in algorithms."
 
       - company: NSFOCUS Technologies Group Co., Ltd.
         position: R&D Engineer

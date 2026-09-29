@@ -208,24 +208,38 @@ description: Zhufeng (Zephyr) Qiu, Ph.D. applicant in HPC and ML systems. Compre
   </div>
   <div class="timeline" data-rail>
     {% for entry in site.data.cv.cv.sections.Experience limit: 3 %}
-    <details class="timeline-row" data-reveal data-accordion style="--i: {{ forloop.index0 }}">
-      <summary>
+    <article class="timeline-row" data-reveal style="--i: {{ forloop.index0 }}">
+      <div class="timeline-head">
         <span class="timeline-date mono"
           >{{ entry.start_date | append: '-01' | date: '%b %Y' }} — {% if entry.end_date %}{{ entry.end_date | append: '-01' | date: '%b %Y' }}{% else
           %}Present{% endif %}</span
-        ><span class="timeline-copy"
-          ><span class="timeline-title">{{ entry.company }}</span><span>{{ entry.position }}</span
-          ><span class="timeline-location">{{ entry.location }}</span></span
-        ><span class="expand-symbol" aria-hidden="true"></span>
-      </summary>
-      <div class="timeline-body">
-        <ul>
-          {% for item in entry.highlights %}
-          <li>{{ item }}</li>
-          {% endfor %}
-        </ul>
+        >
+        <div class="timeline-copy">
+          <h3 class="timeline-title">{{ entry.company }}</h3>
+          <span>{{ entry.position }}</span>
+          <span class="timeline-location">{{ entry.location }}</span>
+          {% if entry.roles %}
+          <ol class="roles">
+            {% for role in entry.roles %}
+            <li class="role">
+              <h4 class="role-title">{{ role.title }}</h4>
+              <span class="role-date mono"
+                >{{ role.start_date | append: '-01' | date: '%b %Y' }} — {{ role.end_date | append: '-01' | date: '%b %Y' }}</span
+              >
+              <p>{{ role.summary }}</p>
+            </li>
+            {% endfor %}
+          </ol>
+          {% else %}
+          <ul class="timeline-points">
+            {% for item in entry.highlights %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
       </div>
-    </details>
+    </article>
     {% endfor %}
   </div>
 </section>
