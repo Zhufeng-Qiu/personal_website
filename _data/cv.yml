@@ -103,9 +103,8 @@ cv:
 
       - company: "Undergraduate Thesis — SinoMaps Press Collaboration"
         position: Web-Based Dynamic Thematic Mapping Technologies
-        location: Wuhan University, China
-        start_date: 2018-03
-        end_date: 2018-05
+        location: SinoMaps Press, Beijing
+        date: "2018"
         summary: "Advisors: Prof. Haihong Zhu and Yuntao Long"
         highlights:
           - Surveyed web-based thematic-mapping methods and designed the overall, functional, and logical architecture for online visualization, interaction, and dynamic data updates.
@@ -123,6 +122,17 @@ cv:
           - Used MATLAB/R for modelling and ArcGIS to generate spatially continuous PM2.5 concentration maps across the Wuhan "1+8" metropolitan area; the national program passed final review with a Good rating.
 
     Projects:
+      - name: BoundRelay — LLM KV-Cache Compression and Transfer Study
+        url: https://github.com/Zhufeng-Qiu/bound_relay_study
+        start_date: 2026-08
+        end_date: 2026-09
+        summary: "Independent ML-systems study — Python, PyTorch, CUDA, cuSZp, SZ3, CUDA zfp"
+        highlights:
+          - "Replicated K/V compression-sensitivity asymmetry in Qwen3-1.7B on 32 held-out articles: at similar payload sizes, K-only compression raised mean teacher-forced NLL by 0.0155 (95% CI [+0.0068, +0.0235]), while V-only compression did not."
+          - Built a benchmark covering 1,152 tensor observations, with recorded model/codec revisions and binary hashes, frozen evaluation inputs and tolerances, and a versioned corrections register.
+          - "Ran 360 paired prepared-cache comparisons: approximately 3× payload compression cut fsync-acknowledged write time by 26–49%, but increased pipelined host-staged GPU-to-GPU transfer time to 1.52–2.33× raw. Host staging bypassed peer-copy failures that returned CUDA success without transferring data on all three rented multi-GPU pods."
+          - Identified per-tensor overhead and payload-dependent bandwidth as sources of prediction error; stage costs measured on the actual cache and hardware predicted 21.43 ms versus 43.65 ms for the complete pipeline.
+
       - name: Multi-GPU Similarity Engine — Lossless Collective Compression & Overlap
         url: https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study
         start_date: 2026-07

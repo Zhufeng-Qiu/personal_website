@@ -1,15 +1,15 @@
 ---
 layout: page
 title: Web-Based Dynamic Thematic Mapping
-description: Undergraduate thesis, in collaboration with SinoMaps Press
+description: Undergraduate thesis with SinoMaps Press, Beijing · 2018
 img:
 importance: 8
 category: research
 ---
 
-`D3.js` `JavaScript` `web cartography` &nbsp;·&nbsp; Mar.–May 2018
+`D3.js` `JavaScript` `web cartography` &nbsp;·&nbsp; 2018
 
-Undergraduate thesis, collaboration with SinoMaps Press.
+Undergraduate thesis, collaboration with **SinoMaps Press, Beijing**.
 Advisors: **Prof. Haihong Zhu** and **Yuntao Long**.
 
 A survey of web-based thematic-mapping methods, followed by an architecture —

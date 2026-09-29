@@ -10,6 +10,54 @@
   Both formats use the same unified rendering includes for consistent output
 {% endcomment %}
 
+<style>
+  /* Keep every CV date in one fixed column, regardless of title/location length. */
+  .cv .list-group-item > .row {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    column-gap: 1.25rem;
+    margin-left: 0;
+    margin-right: 0;
+    align-items: start;
+  }
+  .cv .list-group-item > .row > div {
+    width: auto !important;
+    max-width: none;
+    min-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .cv .date-column {
+    transform: none;
+    text-align: left;
+  }
+  .cv .date-column .table-cv {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .cv .date-column .badge {
+    min-width: 6.5rem !important;
+    white-space: normal;
+    line-height: 1.25;
+  }
+  .cv .date-column .location {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .cv .date-column + div > h6 {
+    margin-left: 0 !important;
+  }
+  @media (max-width: 575.98px) {
+    .cv .list-group-item > .row {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 0.5rem;
+    }
+    .cv .date-column .location {
+      margin-bottom: 0;
+    }
+  }
+</style>
+
 <div class="post">
   <header class="post-header">
     <h1 class="post-title">
