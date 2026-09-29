@@ -1,0 +1,223 @@
+---
+layout: portfolio
+title: Fewer bytes ≠ less time.
+permalink: /lab/kv-transfer/
+lab: kv
+project: BoundRelay
+scripts: [lab-kit, lab-kv]
+description: BoundRelay. One 3× smaller LLM KV cache is slower on a host-staged GPU-to-GPU path and faster on a durable offload write.
+---
+
+<div class="lab-heading">
+  <p class="eyebrow">Lab 02 / Moving LLM state</p>
+  {% include portfolio-lab-origin.liquid project=page.project %}
+  <h1>Fewer bytes ≠ less time.</h1>
+  <p>
+    Qwen3-1.7B's KV cache, 234.9 MB, compressed 3.02× by an error-bounded codec. Between two GPUs that is a loss; on a durable write it is a win. Same
+    cache, same codec: the path sets the sign.
+  </p>
+</div>
+{% include portfolio-lab-tabs.liquid %}
+<noscript><p class="noscript-notice">Enable JavaScript to run the race. The measured times are listed in the source notes below.</p></noscript>
+
+<div class="lab-body">
+  <section class="lab-panel" id="race-panel" aria-labelledby="race-title">
+    <div class="panel-head">
+      <div>
+        <p class="eyebrow">Recorded · one 56-tensor cache, cuSZp fixed, ε = 0.10 σ</p>
+        <h2 id="race-title">Race raw against compressed.</h2>
+        <p>
+          Both arms move the same cache and both bars grow at the same pace, so the arm that stops first is faster, and the finished bars keep the
+          measured proportions. Each path is scaled to its slower arm.
+        </p>
+      </div>
+      <button type="button" class="btn" id="race-again">↻ Race again</button>
+    </div>
+
+    <div class="race-groups" id="races">
+      <div class="race-group" data-path="pipeline">
+        <div class="race-head">
+          <div><b>GPU → GPU</b><span class="mono">7-stage pipeline · GPU 0 → host → GPU 1</span></div>
+          <span class="race-result bad" data-result>compressed 1.97× slower</span>
+        </div>
+        <div class="race-lane raw">
+          <div class="who">Raw bf16<small>234.9 MB</small></div>
+          <div class="race-track"><span class="race-fill"></span></div>
+          <div class="race-time"><span data-time>22.19 ms</span><small>measured</small></div>
+        </div>
+        <div class="race-lane cmp">
+          <div class="who">Compressed · cuSZp<small>77.7 MB · 3.02× fewer bytes</small></div>
+          <div class="race-track">
+            <span class="race-fill"></span><span class="bytes-tick" data-tick><span>bytes-only model</span></span>
+          </div>
+          <div class="race-time"><span data-time>43.65 ms</span><small>encode + move + decode</small></div>
+        </div>
+        <p class="race-note fine" data-note>Paired round: pooled R = 1.85 over 4 inputs, every 95% interval above 1.</p>
+      </div>
+      <div class="race-group" data-path="moosefs">
+        <div class="race-head">
+          <div><b>Durable write</b><span class="mono">fsync offload · GPU → host → MooseFS</span></div>
+          <span class="race-result good" data-result>compressed 1.59× faster</span>
+        </div>
+        <div class="race-lane raw">
+          <div class="who">Raw bf16<small>234.9 MB</small></div>
+          <div class="race-track"><span class="race-fill"></span></div>
+          <div class="race-time"><span data-time>563.1 ms</span><small>measured</small></div>
+        </div>
+        <div class="race-lane cmp">
+          <div class="who">Compressed · cuSZp<small>77.7 MB · 3.02× fewer bytes</small></div>
+          <div class="race-track">
+            <span class="race-fill"></span><span class="bytes-tick" data-tick><span>bytes-only model</span></span>
+          </div>
+          <div class="race-time"><span data-time>354.6 ms</span><small>encode + write</small></div>
+        </div>
+        <p class="race-note fine" data-note>Paired round: pooled R = 0.64 over 4 inputs, every 95% interval below 1.</p>
+      </div>
+    </div>
+    <div class="legend" style="margin-top: 1.3rem">
+      <span><i style="background: rgba(140, 138, 150, 0.8)"></i>raw bf16</span><span><i style="background: var(--accent)"></i>compressed</span
+      ><span><i class="tick-key"></i>bytes-only model: raw time ÷ 3.02</span>
+    </div>
+    <div class="verdict" id="kv-verdict">
+      Same cache, same 3.02× fewer bytes, opposite signs. Between GPUs, encoding and decoding cost more than the smaller transfer saves; on the
+      durable write, the saved bytes win.
+    </div>
+    <p class="fine" style="margin-top: 1rem">
+      Two more measured paths: host-staged serial GPU → GPU, 27.87 against 53.35 ms (1.91× slower; paired R 3.14); overlay fsync write, 130.0 against
+      62.9 ms (2.07× faster; one run, not in the paired round).
+    </p>
+  </section>
+
+  <section class="lab-panel" id="kv-quality" aria-labelledby="quality-title">
+    <div class="panel-head">
+      <div>
+        <p class="eyebrow">Held-out quality · 32 WikiText-2 articles</p>
+        <h2 id="quality-title">Keys and values are not the same data.</h2>
+        <p>At nearly the same payload, compressing keys raises perplexity; compressing values does not.</p>
+      </div>
+      <div class="segmented" data-segmented id="kv-arm" aria-label="Which half of the cache is compressed">
+        <button type="button" data-value="k" aria-pressed="true">K only</button
+        ><button type="button" data-value="v" aria-pressed="false">V only</button
+        ><button type="button" data-value="kv" aria-pressed="false">K + V</button>
+      </div>
+    </div>
+    <div class="split">
+      <div>
+        <span class="control-label">The cache · 16 key and 16 value tensors, schematic</span>
+        <div class="kv-grid" id="kv-grid" aria-hidden="true"></div>
+        <div class="reads three" style="margin-top: 1.2rem">
+          <div class="read"><span>Payload</span><b id="q-payload">0.664×</b><small>of raw bytes</small></div>
+          <div class="read"><span>Perplexity</span><b id="q-ppl">+1.56%</b><small id="q-dnll">ΔNLL +0.0155</small></div>
+          <div class="read"><span>Articles worse</span><b id="q-worse">26 / 32</b></div>
+        </div>
+      </div>
+      <div>
+        <span class="control-label">ΔNLL with 95% CI · zero = no change</span>
+        <div class="ci-chart" id="ci-chart"></div>
+        <span class="control-label">Articles whose NLL got worse</span>
+        <div class="articles" id="articles" aria-hidden="true"></div>
+      </div>
+    </div>
+    <div class="verdict" id="q-verdict"></div>
+    <p class="fine" style="margin-top: 1rem">
+      Recorded protocol deviation: 2 of 3,584 compressed tensors exceeded the pre-declared error tolerance, and the stop rule was relaxed mid-round
+      rather than halting. The V improvement is observed twice and explained neither time; it is not evidence that lossy compression improves a model.
+    </p>
+  </section>
+
+  <p class="eyebrow chapters-label">Go deeper</p>
+  <div class="chapters">
+    <details class="chapter" id="evidence" data-accordion>
+      <summary>
+        <span class="chapter-index mono">01</span>
+        <span class="chapter-copy">
+          <span class="chapter-title">Evidence &amp; uncertainty</span>
+          <span class="chapter-teaser">Are the single runs a fluke? 360 back-to-back pairs across 12 configurations, each with a 95% interval.</span>
+        </span>
+        <span class="chapter-toggle mono" aria-hidden="true"></span>
+      </summary>
+      <div class="accordion-body">
+        <section class="lab-panel" id="forest-panel" aria-labelledby="forest-title">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Paired and interleaved · 12 configurations · no interval crosses 1</p>
+              <h2 id="forest-title">The path sets the sign.</h2>
+              <p>
+                360 raw/compressed pairs taken back to back, half in each order, across three segments of one session on 2× A40. Four caches, three
+                paths. The magnitudes drift; the direction never does.
+              </p>
+            </div>
+            <span class="tag measured">measured</span>
+          </div>
+          <div class="forest" id="forest"></div>
+          <div class="forest-axis" id="forest-axis" aria-hidden="true"></div>
+          <p class="fine" style="margin-top: 1rem">
+            R = geometric mean of T<sub>compressed</sub> / T<sub>raw</sub> over 30 pairs, with its 95% interval, on a log scale; the vertical line is
+            R = 1. The fsync path here is MooseFS over the data-centre network. The wide serial interval (d01 · 1024) is reported as measured; slow
+            samples were not removed.
+          </p>
+        </section>
+      </div>
+    </details>
+    <details class="chapter" id="host-staged" data-accordion>
+      <summary>
+        <span class="chapter-index mono">02</span>
+        <span class="chapter-copy">
+          <span class="chapter-title">Why host-staged?</span>
+          <span class="chapter-teaser">cudaMemcpyPeer returned success and moved nothing, on 3 of 3 rented multi-GPU pods.</span>
+        </span>
+        <span class="chapter-toggle mono" aria-hidden="true"></span>
+      </summary>
+      <div class="accordion-body">
+        <section class="lab-panel" id="peer-panel" aria-labelledby="peer-title">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Observed on 3 of 3 rented multi-GPU pods</p>
+              <h2 id="peer-title">A success code that moved nothing.</h2>
+              <p>
+                <code>can_device_access_peer</code> said yes. <code>cudaMemcpyPeer</code> returned <code>cudaSuccess</code>. The destination stayed
+                zero, both directions, 4 B through 32 MB, ten of ten attempts. Through host memory the copy was exact.
+              </p>
+            </div>
+            <div class="toggles" style="margin: 0">
+              <button type="button" class="btn ghost" data-copy="peer">cudaMemcpyPeer</button>
+              <button type="button" class="btn ghost" data-copy="host">Host-staged copy</button>
+            </div>
+          </div>
+          <div class="peer-demo">
+            <div class="buffer">
+              <span class="mono">GPU 0 · source</span>
+              <div class="buffer-cells" id="buf-src"></div>
+            </div>
+            <div class="peer-arrow">
+              <span id="copy-kind">copy</span><span aria-hidden="true">→</span><span class="return-code" id="return-code">cudaSuccess</span>
+            </div>
+            <div class="buffer">
+              <span class="mono">GPU 1 · destination</span>
+              <div class="buffer-cells" id="buf-dst"></div>
+            </div>
+          </div>
+          <div class="verdict" id="peer-verdict"></div>
+          <p class="fine" style="margin-top: 1rem">
+            Two GPU models (A40, RTX A6000), two data centres, PXB and SYS topologies. Characterised, not diagnosed: the cause and how common it is
+            both need host access a rented pod does not give. Every transport number above is host-staged for this reason.
+          </p>
+        </section>
+      </div>
+    </details>
+  </div>
+</div>
+
+<div class="lab-source">
+  <p>
+    Source: <a href="https://github.com/Zhufeng-Qiu/bound_relay_study/blob/main/NOTE.md">BoundRelay research note</a> §2 (“Where compression pays”),
+    §3 and §4, and the paired protocol round of 2026-09-17. Qwen3-1.7B at revision <code>b9352fbb</code>, bf16; one 234.9 MB cache; 2× A40 and 2×
+    A6000 rented pods. Raw arms verified byte for byte; compressed arms held 0.9999 × ε.
+  </p>
+  <p>
+    The single-run times compare arms measured at different moments on a shared machine; the paired round fixes the sign. The
+    <code>fsync</code> figures are acknowledged writes, not round trips. One model, one corpus, one GPU generation: the break-even (3.82 → 5.38 GB/s)
+    is implied by measured costs, not measured.
+  </p>
+</div>
+{% include portfolio-lab-pager.liquid %}

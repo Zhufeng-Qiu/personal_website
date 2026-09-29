@@ -1,7 +1,7 @@
 ---
 layout: about
 title: about
-permalink: /
+permalink: /academic/
 subtitle: GPU systems · collective communication · high-performance LLM inference
 
 profile:

@@ -1,0 +1,17 @@
+// Run against an already-running preview. BROWSER_EXECUTABLE is optional.
+module.exports = {
+  testDir: __dirname,
+  testMatch: /(?:academic|portfolio)\.spec\.js/,
+  outputDir: process.env.TEST_OUTPUT_DIR || "../../test-results/portfolio",
+  timeout: 45000,
+  workers: 2,
+  use: {
+    baseURL: process.env.BASE_URL || "http://127.0.0.1:4000/",
+    launchOptions: process.env.BROWSER_EXECUTABLE ? { executablePath: process.env.BROWSER_EXECUTABLE } : {},
+    screenshot: "only-on-failure",
+  },
+  projects: [
+    { name: "desktop", use: { viewport: { width: 1440, height: 1050 } } },
+    { name: "mobile", use: { viewport: { width: 390, height: 844 } } },
+  ],
+};

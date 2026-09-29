@@ -1,0 +1,36 @@
+{% assign labs = site.data.portfolio.labs %}
+{% assign in_series = false %}
+{% for lab in labs %}
+  {% if lab.id == page.lab %}
+    {% assign in_series = true %}
+    {% assign prev_index = forloop.index0 | minus: 1 %}
+    {% assign next_index = forloop.index0 | plus: 1 %}
+  {% endif %}
+{% endfor %}
+<nav class="lab-pager" aria-label="More labs">
+  {% if in_series %}
+    {% if prev_index >= 0 %}
+      {% assign prev = labs[prev_index] %}
+      <a href="{{ prev.url | relative_url }}"
+        ><span>← Lab {{ prev.number }}</span><b>{{ prev.title }}</b></a
+      >
+    {% endif %}
+    {% if next_index < labs.size %}
+      {% assign next = labs[next_index] %}
+      <a class="next" href="{{ next.url | relative_url }}"
+        ><span>Lab {{ next.number }} →</span><b>{{ next.title }}</b></a
+      >
+    {% endif %}
+  {% else %}
+    {% comment %} A project lab outside the series links to every lab in it. {% endcomment %}
+    {% for lab in labs %}
+      <a
+        {% if forloop.last %}
+          class="next"
+        {% endif %}
+        href="{{ lab.url | relative_url }}"
+        ><span>Lab {{ lab.number }} →</span><b>{{ lab.title }}</b></a
+      >
+    {% endfor %}
+  {% endif %}
+</nav>

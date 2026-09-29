@@ -21,6 +21,11 @@ test("CV keeps research dates aligned and BoundRelay first", async ({ page, base
   await expect(first).toContainText("95% CI [+0.0068, +0.0235]");
   await expect(first).toContainText("all three rented multi-GPU pods");
   await expect(first.locator("table:not(.table-cv)")).toHaveCount(0);
+  const second = projects.locator(".list-group-item").nth(1);
+  await expect(second.locator("h6")).toContainText("SGLang-Omni — Open-source Contribution");
+  await expect(second.locator(".badge")).toHaveText(/Sep 2026/i);
+  await expect(second.locator('a[href="https://github.com/sgl-project/sglang-omni/pull/2296"]').first()).toBeVisible();
+  await expect(second).toContainText("30-second English audio admission");
 
   const pdf = page.locator('.post-header a[href$="Zhufeng_Qiu_PhD_CV.pdf"]');
   const response = await page.request.get(await pdf.getAttribute("href"));

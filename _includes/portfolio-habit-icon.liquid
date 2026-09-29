@@ -1,0 +1,56 @@
+{% case include.name %}
+  {% when 'Hiking' %}
+    <svg viewBox="0 0 60 60">
+      <circle class="i-sun" cx="45" cy="15" r="5" />
+      <path class="draw" pathLength="1" d="M3 50 L21 21 L30 34 L37 25 L57 50 Z" />
+      <path d="M17 29 L21 21 L25 27" opacity="0.5" />
+      <path class="i-path" d="M19 50 C24 45 31 45 28 39 C25 34 33 32 36 29" stroke-dasharray="2 3" />
+    </svg>
+  {% when 'Swimming' %}
+    <svg viewBox="0 0 60 60">
+      <defs
+        ><clipPath id="habit-swim-clip"><rect x="0" y="0" width="60" height="60" /></clipPath
+      ></defs>
+      <circle cx="38" cy="19" r="4.5" />
+      <path class="draw" pathLength="1" d="M12 31 C18 25 25 25 31 28 C36 30 41 29 46 25" />
+      <g clip-path="url(#habit-swim-clip)">
+        <path class="i-wave a" d="M-8 39 q4 -4 8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0" />
+        <path class="i-wave b" d="M-8 47 q4 -4 8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0 t8 0" opacity="0.55" />
+      </g>
+    </svg>
+  {% when 'Cooking' %}
+    <svg viewBox="0 0 60 60">
+      <g class="i-pan">
+        <path class="draw" pathLength="1" d="M6 36 H42 C42 44 35 49 24 49 C13 49 6 44 6 36 Z" />
+        <path d="M42 38 L57 33" />
+      </g>
+      <path class="i-steam a" d="M16 29 c-3 -4 3 -6 0 -10" />
+      <path class="i-steam b" d="M24 29 c-3 -4 3 -6 0 -10" />
+      <path class="i-steam c" d="M32 29 c-3 -4 3 -6 0 -10" />
+    </svg>
+  {% when 'Dízi' %}
+    <svg viewBox="0 0 60 60">
+      <g transform="rotate(-24 30 36)">
+        <rect class="draw" pathLength="1" x="3" y="33" width="54" height="7" rx="3.5" />
+        <circle cx="12" cy="36.5" r="1.3" />
+        <circle cx="24" cy="36.5" r="1.1" />
+        <circle cx="30" cy="36.5" r="1.1" />
+        <circle cx="36" cy="36.5" r="1.1" />
+        <circle cx="42" cy="36.5" r="1.1" />
+        <circle cx="48" cy="36.5" r="1.1" />
+      </g>
+      <g class="i-note a"><path d="M40 12 v9" /><ellipse cx="38" cy="21.5" rx="2.3" ry="1.7" /></g>
+      <g class="i-note b"><path d="M49 7 v8 l4 -1.5" /><ellipse cx="47" cy="15.5" rx="2" ry="1.5" /></g>
+    </svg>
+  {% when 'Dota' %}
+    <svg viewBox="0 0 60 60">
+      <rect class="draw" pathLength="1" x="8" y="8" width="44" height="44" rx="3" />
+      <path d="M12 48 L12 12 L48 12" opacity="0.5" />
+      <path d="M12 48 L48 48 L48 12" opacity="0.5" />
+      <path class="draw" pathLength="1" d="M12 48 L48 12" />
+      <path d="M12 12 L48 48" stroke-dasharray="1.5 3.5" opacity="0.7" />
+      <circle class="i-glow" cx="30" cy="30" r="6.5" />
+      <circle class="i-hero a" cx="18" cy="42" r="2.4" fill="currentColor" />
+      <circle class="i-hero b" cx="42" cy="18" r="2.4" fill="currentColor" />
+    </svg>
+{% endcase %}

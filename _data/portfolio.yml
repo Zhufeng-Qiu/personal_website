@@ -1,0 +1,87 @@
+selected_work:
+  - title: BoundRelay
+    description: LLM KV-cache compression, quality & transfer
+    finding: Fewer bytes ≠ less time
+    date: Aug–Sep 2026
+    details: /projects/boundrelay/
+    external: https://github.com/Zhufeng-Qiu/bound_relay_study
+    external_label: GitHub
+    lab: /lab/kv-transfer/
+    lab_label: Lab 02
+  - title: SGLang-Omni
+    description: Open-source contribution · Fun-ASR context budget
+    finding: 30-second English audio, admitted again
+    date: Sep 2026
+    status: PR open
+    external: https://github.com/sgl-project/sglang-omni/pull/2296
+    external_label: "PR #2296"
+  - title: Multi-GPU Similarity Engine
+    description: Lossless collective compression & overlap
+    finding: 3× smaller AllReduce payload
+    date: Jul–Aug 2026
+    details: /projects/1_project/
+    external: https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study
+    external_label: GitHub
+    lab: /lab/compression/
+    lab_label: Lab 01
+  - title: Quantized LLM Inference
+    description: An 8B model, Turing & Ampere
+    finding: Capacity ≠ speed
+    date: Jul 2025–Aug 2026
+    details: /projects/2_project/
+    external: https://github.com/Zhufeng-Qiu/product_price_alerter_lora_model_study
+    external_label: GitHub
+    lab: /lab/quantization/
+    lab_label: Project lab
+  - title: Zephyr Manus
+    description: An agent runtime with an isolated tool sandbox
+    finding: Plan. Act. Observe. Resume.
+    date: Mar–May 2026
+    details: /projects/4_project/
+    external: http://zephyr-manus.zhufqiu.com
+    external_label: Live app
+  - title: LLMOps Application Platform
+    description: RAG, agents & visual workflows
+    finding: From retrieval to execution
+    date: May–Aug 2026
+    details: /projects/5_project/
+
+# The two labs, in tab order. The first is featured on the home page, the second mirrors
+# it. /lab/quantization/ is a project lab outside this list, linked from its work row;
+# /lab/packing/ and /lab/overlap/ now redirect to chapters of Lab 01.
+labs:
+  - id: compression
+    number: "01"
+    kicker: The trade-off
+    title: When does compression pay?
+    blurb: Same work. Different bottleneck. Explore recorded results, then try your own.
+    url: /lab/compression/
+    project: Multi-GPU Similarity Engine
+    tab: Compression
+  - id: kv
+    number: "02"
+    kicker: Moving LLM state
+    title: Fewer bytes ≠ less time.
+    blurb: One 3× smaller KV cache is slower between two GPUs and faster on a durable write. Same cache, same codec; the path sets the sign.
+    url: /lab/kv-transfer/
+    project: BoundRelay
+    action: Race raw against compressed
+    tab: KV transfer
+
+# Same five sentences as _pages/habits.md; keep the two in step.
+habits:
+  - name: Hiking
+    note: Weekends
+    text: Weekends are spent either in the mountains or on the way to them.
+  - name: Swimming
+    note: Frog stroke
+    text: Breaststroke only. In Chinese, it's literally “frog stroke,” which feels about right.
+  - name: Cooking
+    note: Survival skill
+    text: An essential survival skill for every international student.
+  - name: Dízi
+    note: 笛子 · bamboo flute
+    text: The Chinese bamboo flute. Once a certified Grade 5 player; now I need a long time just to find the embouchure hole.
+  - name: Dota
+    note: Spectator
+    text: More spectator than player. I don't even have the client installed.

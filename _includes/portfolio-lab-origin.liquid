@@ -1,0 +1,13 @@
+{% comment %}
+  The project a lab comes from, linked to its details page.
+  Pass project= a title from site.data.portfolio.selected_work.
+{% endcomment %}
+{% assign origin = site.data.portfolio.selected_work | where: 'title', include.project | first %}
+{% if origin %}
+  <div class="lab-origin">
+    <span class="lab-origin-label mono">From the project</span>
+    <a class="project-chip" href="{{ origin.details | relative_url }}"
+      ><b>{{ origin.title }}</b><span class="mono">{{ origin.date }}</span><span class="project-chip-arrow" aria-hidden="true">→</span></a
+    >
+  </div>
+{% endif %}

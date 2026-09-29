@@ -1,0 +1,12 @@
+<nav class="lab-tabs" aria-label="Experiments">
+  {% for lab in site.data.portfolio.labs %}
+    <a
+      href="{{ lab.url | relative_url }}"
+      {% if page.lab == lab.id %}
+        aria-current="page"
+      {% endif %}
+    >
+      {{- lab.number }} / {{ lab.tab -}}
+    </a>
+  {% endfor %}
+</nav>

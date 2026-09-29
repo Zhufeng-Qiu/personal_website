@@ -133,6 +133,13 @@ cv:
           - "Ran 360 paired prepared-cache comparisons: approximately 3× payload compression cut fsync-acknowledged write time by 26–49%, but increased pipelined host-staged GPU-to-GPU transfer time to 1.52–2.33× raw. Host staging bypassed peer-copy failures that returned CUDA success without transferring data on all three rented multi-GPU pods."
           - Identified per-tensor overhead and payload-dependent bandwidth as sources of prediction error; stage costs measured on the actual cache and hardware predicted 21.43 ms versus 43.65 ms for the complete pipeline.
 
+      - name: SGLang-Omni — Open-source Contribution
+        url: https://github.com/sgl-project/sglang-omni/pull/2296
+        date: 2026-09
+        summary: "[PR #2296](https://github.com/sgl-project/sglang-omni/pull/2296) (open)"
+        highlights:
+          - Submitted a fix for Fun-ASR’s language-dependent context-budget error to restore 30-second English audio admission; added multilingual regression tests and validated the fix on an RTX 4090.
+
       - name: Multi-GPU Similarity Engine — Lossless Collective Compression & Overlap
         url: https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study
         start_date: 2026-07
