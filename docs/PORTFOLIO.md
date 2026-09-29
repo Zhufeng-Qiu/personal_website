@@ -53,10 +53,10 @@ Pages output. Merely building or serving locally does not publish the changes.
 
 ## Scale and motion
 
-The root font size is fluid (`clamp(16px, 0.55vw + 13px, 26px)`: 16 px on phones,
-about 21 px at 1440 wide, 24 px at 1920) and every size is in `rem`, so the whole
-portfolio scales with the window instead of staying at a fixed pixel size on large
-screens.
+The root font size is fluid and every size is in `rem`, so the whole portfolio scales
+from one value. Phones get 16 px, easing to 13 px by 1000 px wide; laptops get 13 px
+(chosen to match how the previous, larger scale looked at 50% browser zoom); very wide
+monitors grow back to 16 px. Content is capped at `80rem` (1040 px at 13 px).
 
 Timelines move blocks with `transform` driven by JavaScript tweens rather than CSS
 `left`/`width` transitions. Canvas and lab loops run only while their element is on

@@ -1,6 +1,7 @@
 /* Interactive portfolio: shared tokens, layout, home sections.
- * Sizes are in rem and the root size is fluid, so the whole page scales with the
- * viewport (16px on phones, ≈21px at 1440 wide, ≈24px at 1920, capped at 26px). */
+ * Sizes are in rem and the root size is fluid: 16px on phones, easing to 13px by 1000px
+ * wide, 13px on laptops (the look of the previous scale at 50% zoom), and growing again
+ * to 16px on very wide monitors. */
 :root {
   --bg: #0f1012;
   --bg-2: #131418;
@@ -30,10 +31,15 @@
   color-scheme: dark;
 }
 html {
-  font-size: clamp(16px, 0.55vw + 13px, 26px);
+  font-size: clamp(13px, 22px - 0.9vw, 16px);
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header) + 1.5rem);
   -webkit-text-size-adjust: 100%;
+}
+@media (min-width: 1000px) {
+  html {
+    font-size: clamp(13px, 0.4vw + 6px, 16px);
+  }
 }
 * {
   box-sizing: border-box;
