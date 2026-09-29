@@ -1113,20 +1113,12 @@ code {
   position: relative;
   border-bottom: 1px solid var(--line);
 }
-.timeline-row summary,
 .timeline-head {
   display: grid;
-  grid-template-columns: 11.4rem 1fr 1.6rem;
+  grid-template-columns: 11.4rem 1fr;
   column-gap: 2.4rem;
   align-items: start;
   padding: 1.5rem 0;
-  list-style: none;
-}
-.timeline-row summary {
-  cursor: pointer;
-}
-.timeline-row summary::-webkit-details-marker {
-  display: none;
 }
 .timeline-row::before {
   content: "";
@@ -1168,54 +1160,70 @@ code {
   color: var(--text);
   transition: color 0.3s;
 }
-summary:hover .timeline-title {
-  color: var(--accent-2);
-}
 .timeline-location {
   color: #a9a1b5;
   font-size: 0.78rem;
 }
-.expand-symbol {
-  position: relative;
-  width: 1.1rem;
-  height: 1.1rem;
-  margin-top: 0.7rem;
-  justify-self: end;
-}
-.expand-symbol::before,
-.expand-symbol::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1.5px;
-  background: var(--accent);
-  transition: transform 0.45s var(--ease-out);
-}
-.expand-symbol::after {
-  transform: rotate(90deg);
-}
-.timeline-row[open] .expand-symbol::after {
-  transform: rotate(0deg);
-}
-.timeline-body {
-  overflow: hidden;
-}
-.timeline-body > ul {
-  margin: 0 3.5rem 1.6rem calc(11.4rem + 2.8rem);
+.timeline-points {
+  max-width: 52rem;
+  margin: 0.9rem 0 0;
   padding-left: 1.1rem;
   color: var(--muted);
-  font-size: 0.86rem;
 }
-.timeline-body li + li {
+.timeline-points li + li {
   margin-top: 0.55rem;
 }
-.timeline-body li::marker {
+.timeline-points li::marker {
   color: var(--accent);
 }
-.education-row .timeline-head {
-  grid-template-columns: 11.4rem 1fr;
+/* several roles at one employer, stacked like LinkedIn: dots joined by a thin line */
+.roles {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 52rem;
+  margin: 1rem 0 0;
+  padding: 0 0 0 1.4rem;
+  list-style: none;
+}
+.role {
+  position: relative;
+}
+/* the connector runs from one role's dot to the next, and stops at the last */
+.role:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 0.95rem;
+  bottom: -1.5rem;
+  left: calc(-1.4rem + 0.27rem);
+  width: 1px;
+  background: var(--line-2);
+}
+.role::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  left: -1.4rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+}
+.role-title {
+  font: 500 0.92rem/1.4 var(--sans);
+  color: var(--text);
+}
+.role-date {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+.role p {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.86rem;
 }
 .edu-degree {
   font-size: 0.9rem;
@@ -1796,15 +1804,9 @@ summary:hover .timeline-title {
   .timeline {
     --rail-x: 0.28rem;
   }
-  .timeline-row summary,
-  .timeline-head,
-  .education-row .timeline-head {
-    grid-template-columns: 1fr 1.4rem;
-    padding-left: 1.6rem;
-    column-gap: 1rem;
-  }
-  .education-row .timeline-head {
+  .timeline-head {
     grid-template-columns: 1fr;
+    padding-left: 1.6rem;
   }
   .edu-extra {
     grid-template-columns: 1fr;
@@ -1824,14 +1826,6 @@ summary:hover .timeline-title {
   .timeline-copy {
     grid-column: 1;
     padding-left: 0;
-  }
-  .expand-symbol {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
-  }
-  .timeline-body > ul {
-    margin: 0 0.6rem 1.4rem 2.7rem;
   }
   .contact-links {
     grid-template-columns: 1fr;
