@@ -271,6 +271,25 @@ description: Zhufeng (Zephyr) Qiu, Ph.D. applicant in HPC and ML systems. Compre
     </article>
     {% endfor %}
   </div>
+  {% assign extra_courses = site.data.cv.cv.sections['Additional Coursework'] %} {% if extra_courses %}
+  <div class="edu-extra" data-reveal>
+    <span class="edu-extra-label mono">Additional coursework</span>
+    <ul class="edu-extra-list">
+      {% for course in extra_courses %} {% assign parts = course.name | split: ' — ' %}
+      <li>
+        <h3 class="edu-extra-title">
+          <a href="{{ course.url }}" target="_blank" rel="noopener noreferrer">{{ parts | first }} <span aria-hidden="true">↗</span></a>
+        </h3>
+        <div class="edu-meta">
+          <span class="edu-degree">{{ parts | last }}</span>
+          <span class="timeline-location">{{ course.date | append: '-01' | date: '%b %Y' }}</span>
+        </div>
+        <p class="edu-extra-note">{{ course.summary }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
 </section>
 
 <section class="home-section correspondence" id="contact" aria-labelledby="contact-title" data-section>

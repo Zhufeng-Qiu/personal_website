@@ -67,6 +67,12 @@ cv:
         highlights:
           - "GPA: 3.58/4.0"
 
+    Additional Coursework:
+      - name: Operating Systems — Peking University, via Coursera
+        url: https://www.coursera.org/account/accomplishments/verify/2WP99RFQ88X4
+        date: 2026-09
+        summary: Verified certificate. Processes and scheduling, memory management, file systems.
+
     Experience:
       - company: Beaconfire Solutions Inc.
         position: Software Development Engineer

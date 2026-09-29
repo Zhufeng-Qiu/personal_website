@@ -1282,6 +1282,47 @@ summary:hover .timeline-title {
 .edu-notes li::marker {
   color: var(--accent);
 }
+/* courses taken outside a degree: below the timeline, on the same columns, no rail node */
+.edu-extra {
+  display: grid;
+  grid-template-columns: 11.4rem 1fr;
+  column-gap: 2.4rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.edu-extra-label {
+  padding-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.edu-extra-list {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0 0 0 0.4rem;
+  list-style: none;
+}
+.edu-extra-title {
+  font: 1.3rem/1.25 var(--serif);
+}
+.edu-extra-title a {
+  color: var(--text);
+  transition: color 0.3s;
+}
+.edu-extra-title a:hover {
+  color: var(--accent-2);
+}
+.edu-extra-title span {
+  color: var(--accent);
+  font-size: 0.85em;
+}
+.edu-extra-note {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
 
 /* ---------- 05 correspondence ---------- */
 .correspondence h2 {
@@ -1764,6 +1805,14 @@ summary:hover .timeline-title {
   }
   .education-row .timeline-head {
     grid-template-columns: 1fr;
+  }
+  .edu-extra {
+    grid-template-columns: 1fr;
+    row-gap: 0.6rem;
+    padding-left: 1.6rem;
+  }
+  .edu-extra-list {
+    padding-left: 0;
   }
   .timeline-row::before {
     left: 0;

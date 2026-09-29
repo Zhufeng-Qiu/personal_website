@@ -42,6 +42,15 @@ test("new home, original Academic, and contact routes", async ({ page, baseURL }
   await expect(page.locator("#education .chips li").first()).toBeVisible();
   await expect(page.locator("#education")).toContainText("Parallel Data Processing");
   await expect(page.locator("#education")).toContainText("Seattle");
+  // an online course sits below the three degrees, not among them
+  const extra = page.locator("#education .edu-extra");
+  await expect(extra).toContainText("Operating Systems");
+  await expect(extra).toContainText("Peking University, via Coursera");
+  await expect(extra).toContainText("Sep 2026");
+  await expect(extra.getByRole("link", { name: /Operating Systems/ })).toHaveAttribute(
+    "href",
+    "https://www.coursera.org/account/accomplishments/verify/2WP99RFQ88X4"
+  );
   // habits are their own section 06
   await expect(page.locator("#life .eyebrow").first()).toContainText("06");
   await expect(page.locator("#life .habit")).toHaveCount(5);

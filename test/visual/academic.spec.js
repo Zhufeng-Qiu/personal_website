@@ -27,6 +27,17 @@ test("CV keeps research dates aligned and BoundRelay first", async ({ page, base
   await expect(second.locator('a[href="https://github.com/sgl-project/sglang-omni/pull/2296"]').first()).toBeVisible();
   await expect(second).toContainText("30-second English audio admission");
 
+  // a 2026 online course has its own dated section, not a line under a 2025 degree
+  const education = page.locator(".cv > .card").filter({ has: page.getByRole("heading", { name: "Education", exact: true }) });
+  await expect(education).not.toContainText("Coursera");
+  const coursework = page.locator(".cv > .card").filter({ has: page.getByRole("heading", { name: "Additional Coursework", exact: true }) });
+  await expect(coursework.locator(".list-group-item")).toHaveCount(1);
+  await expect(coursework.locator(".badge")).toHaveText(/Sep 2026/i);
+  await expect(coursework.getByRole("link", { name: /Operating Systems/ })).toHaveAttribute(
+    "href",
+    "https://www.coursera.org/account/accomplishments/verify/2WP99RFQ88X4"
+  );
+
   const pdf = page.locator('.post-header a[href$="Zhufeng_Qiu_PhD_CV.pdf"]');
   const response = await page.request.get(await pdf.getAttribute("href"));
   expect(response.ok()).toBeTruthy();

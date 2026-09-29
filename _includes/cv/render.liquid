@@ -160,6 +160,7 @@
         {% assign empty_array = '' | split: ',' %}
         {% assign interests = cv.sections['Academic Interests'] | default: cv.sections.Interests | default: empty_array %}
         {% assign education = cv.sections.Education | default: empty_array %}
+        {% assign coursework = cv.sections['Additional Coursework'] | default: empty_array %}
         {% assign exp = cv.sections.Experience | default: empty_array %}
         {% assign vol = cv.sections.Volunteer | default: empty_array %}
         {% assign combined_experience = exp | concat: vol | al_cv_sort_by_date %}
@@ -195,6 +196,18 @@
             <div>
               {% assign entries = education | al_cv_sort_by_date %}
               {% include cv/education.liquid %}
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Additional coursework: dated courses taken outside a degree -->
+        {% if coursework.size > 0 %}
+          <a class="anchor" id="additional-coursework"></a>
+          <div class="card mt-3 p-3">
+            <h3 class="card-title font-weight-medium">Additional Coursework</h3>
+            <div>
+              {% assign entries = coursework %}
+              {% include cv/projects.liquid %}
             </div>
           </div>
         {% endif %}
