@@ -762,6 +762,36 @@ code {
   margin-top: 0.6rem;
   letter-spacing: 0.06em;
 }
+/* what each project is built with, readable without opening its details */
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-width: 34rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.stack li {
+  padding: 0.16rem 0.5rem;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-2);
+  font-size: 0.76rem;
+  letter-spacing: 0.01em;
+  transition: border-color 0.3s;
+}
+.work-row:hover .stack li {
+  border-color: #5d536d;
+}
+.stack-feature {
+  margin: -0.5rem 0 1.6rem;
+}
+.lab-heading > .stack {
+  margin-top: 1.1rem;
+  max-width: 44rem;
+}
 .work-status {
   display: inline-block;
   margin-left: 0.7rem;
@@ -1656,7 +1686,7 @@ code {
   line-height: 1.04;
   letter-spacing: -0.035em;
 }
-.lab-heading > p:last-child {
+.lab-heading > p:not(.eyebrow) {
   color: var(--muted);
   font-size: 0.95rem;
   margin-top: 1.1rem;
