@@ -1,0 +1,12 @@
+{% comment %}
+  A project's tech stack as small tags, from its `stack` in site.data.portfolio.selected_work.
+  Pass project= the project's title; class= adds a modifier for where it sits.
+{% endcomment %}
+{% assign stack_of = site.data.portfolio.selected_work | where: 'title', include.project | first %}
+{% if stack_of.stack %}
+  <ul class="stack mono{% if include.class %} {{ include.class }}{% endif %}" aria-label="Tech stack">
+    {% for tech in stack_of.stack %}
+      <li>{{ tech }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

@@ -89,6 +89,7 @@ description: Zhufeng (Zephyr) Qiu, Ph.D. applicant in HPC and ML systems. Compre
           {% endif %}
         </h3>
         <p>{{ project.description }}</p>
+        {% include portfolio-project-stack.liquid project=project.title %}
         <span class="work-date mono">{{ project.date }}{% if project.status %}<span class="work-status">{{ project.status }}</span>{% endif %}</span>
         {% if project.lab %}
         <div class="lab-cta-compact">{{ lab_cta }}</div>
@@ -136,6 +137,7 @@ description: Zhufeng (Zephyr) Qiu, Ph.D. applicant in HPC and ML systems. Compre
       {% include portfolio-lab-origin.liquid project=featured.project %}
       <h3>When does<br />compression pay?</h3>
       <p>{{ featured.blurb }}</p>
+      {% include portfolio-project-stack.liquid project=featured.project class="stack-feature" %}
       <a class="button button-primary" href="{{ featured.url | relative_url }}" data-magnetic
         >Open the experiment <span aria-hidden="true">→</span></a
       >
@@ -168,6 +170,7 @@ description: Zhufeng (Zephyr) Qiu, Ph.D. applicant in HPC and ML systems. Compre
       {% include portfolio-lab-origin.liquid project=second.project %}
       <h3>Fewer bytes<br />≠ less time.</h3>
       <p>{{ second.blurb }}</p>
+      {% include portfolio-project-stack.liquid project=second.project class="stack-feature" %}
       <a class="button button-primary" href="{{ second.url | relative_url }}" data-magnetic>{{ second.action }} <span aria-hidden="true">→</span></a>
     </div>
     <div class="lab-preview kv-preview" data-kv-preview data-spotlight data-reveal style="--i: 1">

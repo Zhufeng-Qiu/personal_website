@@ -1,6 +1,8 @@
+# `stack` mirrors the stack line at the top of each project page (and the CV summary).
 selected_work:
   - title: BoundRelay
     description: LLM KV-cache compression, quality & transfer
+    stack: [Python, PyTorch, CUDA, cuSZp, SZ3, CUDA zfp]
     finding: Fewer bytes ≠ less time
     date: Aug–Sep 2026
     details: /projects/boundrelay/
@@ -10,6 +12,7 @@ selected_work:
     lab_label: Lab 02
   - title: SGLang-Omni
     description: Open-source contribution · Fun-ASR context budget
+    stack: [Python, SGLang, PyTorch, pytest, CUDA]
     finding: 30-second English audio, admitted again
     date: Sep 2026
     status: PR open
@@ -17,6 +20,7 @@ selected_work:
     external_label: "PR #2296"
   - title: Multi-GPU Similarity Engine
     description: Lossless collective compression & overlap
+    stack: [C++, CUDA, NCCL, MPI, OpenMP, PySpark, CMake, Nsight Systems]
     finding: 3× smaller AllReduce payload
     date: Jul–Aug 2026
     details: /projects/1_project/
@@ -26,6 +30,7 @@ selected_work:
     lab_label: Lab 01
   - title: Quantized LLM Inference
     description: An 8B model, Turing & Ampere
+    stack: [Python, PyTorch, CUDA, PEFT/LoRA, bitsandbytes, Hugging Face Transformers, Modal]
     finding: Capacity ≠ speed
     date: Jul 2025–Aug 2026
     details: /projects/2_project/
@@ -35,6 +40,7 @@ selected_work:
     lab_label: Project lab
   - title: Zephyr Manus
     description: An agent runtime with an isolated tool sandbox
+    stack: [FastAPI, Redis Streams, PostgreSQL, Docker, Next.js, MCP/A2A]
     finding: Plan. Act. Observe. Resume.
     date: Mar–May 2026
     details: /projects/4_project/
@@ -42,6 +48,7 @@ selected_work:
     external_label: Live app
   - title: LLMOps Application Platform
     description: RAG, agents & visual workflows
+    stack: [Python, Flask, Vue 3, LangGraph, Weaviate, Celery]
     finding: From retrieval to execution
     date: May–Aug 2026
     details: /projects/5_project/

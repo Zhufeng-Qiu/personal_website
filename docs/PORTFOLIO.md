@@ -20,7 +20,11 @@ The academic navigation includes an **Interactive** link back to `/`.
   question on its first screen and keeps deeper material in `<details class="chapter">`
   sections that are closed by default. Each lab page and each home lab feature names
   the project it comes from (`_includes/portfolio-lab-origin.liquid`, from the lab's
-  `project` field), and each Selected work row with a lab has a “Try it live” button. Tabs and the previous/next pager are generated
+  `project` field), and each Selected work row with a lab has a “Try it live” button.
+- Every project's tech stack is the `stack` list of its Selected work item, rendered by
+  `_includes/portfolio-project-stack.liquid` in three places: the work row, the home lab
+  feature, and the lab page heading. Keep it in step with the stack line on the
+  project's details page. Tabs and the previous/next pager are generated
   from `site.data.portfolio.labs` by `_includes/portfolio-lab-tabs.liquid` and
   `_includes/portfolio-lab-pager.liquid`.
 - `_pages/lab-quantization.html` (`/lab/quantization/`) is a project lab outside the

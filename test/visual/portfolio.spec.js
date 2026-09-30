@@ -10,6 +10,10 @@ test("new home, original Academic, and contact routes", async ({ page, baseURL }
   await expect(page.locator("h1")).toHaveText("Zhufeng(Zephyr) Qiu");
   await expect(page.locator(".work-row").first()).toContainText("BoundRelay");
   await expect(page.locator(".work-row")).toHaveCount(6);
+  // every project shows its stack without opening the details page
+  await expect(page.locator(".work-row .stack")).toHaveCount(6);
+  await expect(page.locator(".work-row", { hasText: "Multi-GPU" }).locator(".stack li")).toContainText(["C++", "CUDA", "NCCL", "MPI"]);
+  await expect(page.locator(".work-row", { hasText: "BoundRelay" }).locator(".stack")).toContainText("cuSZp");
   const sglang = page.locator(".work-row").nth(1);
   await expect(sglang).toContainText("SGLang-Omni");
   await expect(sglang).toContainText("PR open");
@@ -33,6 +37,10 @@ test("new home, original Academic, and contact routes", async ({ page, baseURL }
   await expect(origins.nth(0)).toHaveAttribute("href", /\/projects\/1_project\/$/);
   await expect(origins.nth(1)).toContainText("BoundRelay");
   await expect(origins.nth(1)).toHaveAttribute("href", /\/projects\/boundrelay\/$/);
+  // …and the stack it was built with
+  await expect(page.locator("#lab .lab-feature .stack")).toHaveCount(2);
+  await expect(page.locator("#lab .lab-feature .stack").nth(0)).toContainText("NCCL");
+  await expect(page.locator("#lab .lab-feature .stack").nth(1)).toContainText("cuSZp");
   await expect(page.locator('[data-ratio="pipeline"]')).toHaveText("1.97×");
   await expect(page.locator('[data-ratio="moosefs"]')).toHaveText("1.59×");
   // experience is shown open: no disclosure widgets
@@ -102,6 +110,7 @@ test("compression lab: recorded cards, the model, packing in view, two closed ch
   await page.goto(route(baseURL, "lab/compression/"));
   await expect(page.locator(".lab-tabs a")).toHaveCount(2);
   await expect(page.locator(".lab-heading .project-chip")).toHaveAttribute("href", /\/projects\/1_project\/$/);
+  await expect(page.locator(".lab-heading .stack")).toContainText("NCCL");
   const nv = page.locator('[data-recorded="nv"]');
   await nv.scrollIntoViewIfNeeded();
   await expect(nv.locator("[data-result]")).toHaveText("4.7%");
@@ -183,6 +192,7 @@ test("overlap chapter: three measured regimes, no interpolation", async ({ page,
 test("kv-transfer lab: two paths, and finished bars keep their measured proportions", async ({ page, baseURL }) => {
   await page.goto(route(baseURL, "lab/kv-transfer/"));
   await expect(page.locator(".lab-heading .project-chip")).toHaveAttribute("href", /\/projects\/boundrelay\/$/);
+  await expect(page.locator(".lab-heading .stack")).toContainText("cuSZp");
   const pipeline = page.locator('.race-group[data-path="pipeline"]');
   const moosefs = page.locator('.race-group[data-path="moosefs"]');
   await expect(pipeline.locator("[data-result]")).toHaveText("compressed 1.97× slower");
@@ -224,6 +234,7 @@ test("quantization project lab: opens on the A10 and never shows stale numbers",
   await page.goto(route(baseURL, "lab/quantization/"));
   await expect(page.locator(".lab-tabs")).toHaveCount(0);
   await expect(page.locator(".lab-heading .project-chip")).toHaveAttribute("href", /\/projects\/2_project\/$/);
+  await expect(page.locator(".lab-heading .stack")).toContainText("bitsandbytes");
   await expect(page.locator(".lab-body > .lab-panel").first()).toHaveAttribute("id", "capacity-panel");
   await expect(page.locator('#gpu [data-value="a10"]')).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator("#r-prefill")).toHaveText("123 ms");

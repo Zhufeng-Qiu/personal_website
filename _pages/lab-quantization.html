@@ -16,6 +16,7 @@ description: Quantized LLM inference. Where one 175-token request spends its tim
     A LoRA-tuned Llama 3.1 8B price estimator: 175 prompt tokens in, 5 tokens out. 4-bit weights are what let it fit on a 16 GB T4, yet on an A10 they
     make every decode step slower. Step through one request and watch where the milliseconds go.
   </p>
+  {% include portfolio-project-stack.liquid project=page.project %}
 </div>
 <noscript
   ><p class="noscript-notice">Enable JavaScript to step through a request. The measured values are listed in the source notes below.</p></noscript
