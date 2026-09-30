@@ -773,17 +773,24 @@ code {
   list-style: none;
 }
 .stack li {
-  padding: 0.16rem 0.5rem;
+  padding: 0.3rem 0.65rem;
   border: 1px solid var(--line-2);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text-2);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.025);
+  color: #d3cdda;
   font-size: 0.76rem;
   letter-spacing: 0.01em;
-  transition: border-color 0.3s;
+  transition:
+    border-color 0.3s,
+    color 0.3s,
+    background 0.3s,
+    transform 0.4s var(--ease-out);
 }
-.work-row:hover .stack li {
-  border-color: #5d536d;
+.stack li:hover {
+  border-color: var(--accent);
+  color: var(--accent-2);
+  background: var(--accent-soft);
+  transform: translateY(-2px);
 }
 .stack-feature {
   margin: -0.5rem 0 1.6rem;
