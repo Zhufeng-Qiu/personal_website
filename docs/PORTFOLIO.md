@@ -55,6 +55,10 @@ The academic navigation includes an **Interactive** link back to `/`.
 No deploy workflow changes are needed: Jekyll emits both editions into the existing
 Pages output. Merely building or serving locally does not publish the changes.
 
+The Chinese name (邱竹风, under the hero name and in the footer) uses Noto Serif SC
+from Google Fonts, subset with `text=` to just those three characters in
+`_layouts/portfolio.liquid`. If the name changes, update that parameter too.
+
 ## Scale and motion
 
 The root font size is fluid and every size is in `rem`, so the whole portfolio scales

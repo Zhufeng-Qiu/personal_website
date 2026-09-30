@@ -8,6 +8,20 @@ test("new home, original Academic, and contact routes", async ({ page, baseURL }
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto(route(baseURL));
   await expect(page.locator("h1")).toHaveText("Zhufeng(Zephyr) Qiu");
+  // the Chinese name sits under the English one, and again in the footer with the credit line
+  await expect(page.locator(".hero-cn")).toHaveText("邱竹风");
+  await expect(page.locator(".hero-cn")).toHaveAttribute("lang", "zh-CN");
+  await expect(page.locator(".site-footer .footer-id")).toHaveText(
+    /© Copyright \d{4} Zhufeng \(Zephyr\) Qiu\s+邱竹风\s+·\s+CO.DESIGNED WITH GPT.6 Astra & Claude Opus 5\.5/
+  );
+  // the footer is one line on a laptop, and "Back to top" really returns to the top
+  const footerRows = await page
+    .locator(".site-footer > *:visible")
+    .evaluateAll((els) => new Set(els.map((e) => Math.round(e.getBoundingClientRect().top / 10))).size);
+  if ((page.viewportSize() || {}).width > 1100) expect(footerRows).toBe(1);
+  await page.evaluate(() => scrollTo(0, document.documentElement.scrollHeight));
+  await page.locator("[data-to-top]").click();
+  await expect.poll(() => page.evaluate(() => scrollY)).toBeLessThan(5);
   await expect(page.locator(".work-row").first()).toContainText("BoundRelay");
   await expect(page.locator(".work-row")).toHaveCount(6);
   // every project shows its stack without opening the details page

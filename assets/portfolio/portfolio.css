@@ -442,6 +442,17 @@ code {
 .js .hero-title.is-in .line > span {
   transform: none;
 }
+/* the Chinese name: a quieter third line under the English one */
+.cn-name {
+  font-family: "Noto Serif SC", var(--serif);
+}
+.hero-cn {
+  margin-top: 0.55rem;
+  color: var(--text-2);
+  font-size: clamp(1.15rem, 1.3vw + 0.5rem, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: 0.25em;
+}
 .hero-line {
   color: var(--accent);
   font: 1.7rem/1.25 var(--serif);
@@ -1668,8 +1679,12 @@ code {
 .footer-note {
   font-style: italic;
 }
-/* below 900px the three footer items no longer fit on one line; the note gets its own */
-@media (max-width: 900px) {
+/* Chinese characters need a little more size than the small mono footer text */
+.site-footer .cn-name {
+  font-size: 1.2em;
+}
+/* one line from 1100px up; narrower, the motto takes its own line */
+@media (max-width: 1100px) {
   .site-footer {
     flex-wrap: wrap;
     row-gap: 0.5rem;

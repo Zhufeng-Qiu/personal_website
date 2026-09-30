@@ -20,6 +20,8 @@
       href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     >
+    {% comment %} Noto Serif SC, subset by `text=` to the three characters of the Chinese name (邱竹风). Change both together. {% endcomment %}
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400&text=%E9%82%B1%E7%AB%B9%E9%A3%8E&display=swap" rel="stylesheet">
     {% assign build = site.time | date: '%s' %}
     <link rel="stylesheet" href="{{ '/assets/portfolio/portfolio.css' | relative_url }}?v={{ build }}">
     {% if page.lab %}<link rel="stylesheet" href="{{ '/assets/portfolio/labs.css' | relative_url }}?v={{ build }}">{% endif %}
@@ -31,7 +33,7 @@
   </head>
   <body class="{% if page.home %}portfolio-home{% else %}lab-page{% endif %}">
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header" id="top">
+    <header class="site-header">
       <div class="header-inner">
         <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="Zephyr, interactive home">ZQ <span>/</span> ZEPHYR</a>
         {% if page.home %}
@@ -49,7 +51,10 @@
     </header>
     <main id="main" class="site-main">{{ content }}</main>
     <footer class="site-footer">
-      <span>Zhufeng (Zephyr) Qiu <span aria-hidden="true">·</span> Seattle</span>
+      <span class="footer-id"
+        >© Copyright {{ site.time | date: '%Y' }} Zhufeng (Zephyr) Qiu <span class="cn-name" lang="zh-CN">邱竹风</span>
+        <span aria-hidden="true">·</span> CO‑DESIGNED WITH GPT‑6 Astra &amp; Claude Opus 5.5</span
+      >
       <span class="footer-note">Curious for life. Measured in method. Resilient in practice.</span>
       <a href="#top" data-to-top>Back to top ↑</a>
     </footer>
