@@ -5,7 +5,7 @@ description: Lossless collective compression and communication–computation ove
 img:
 importance: 1
 category: systems
-github: https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study
+github: https://github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study
 ---
 
 `C++` `CUDA` `NCCL` `MPI` `OpenMP` `PySpark` `CMake` `Nsight Systems` &nbsp;·&nbsp; Aug. 2026
@@ -45,4 +45,4 @@ slot-free event recorded before the finalize kernel that reads the slot.
 
 ---
 
-<a href="https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study" target="_blank">github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study</a>
+<a href="https://github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study" target="_blank">github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study</a>

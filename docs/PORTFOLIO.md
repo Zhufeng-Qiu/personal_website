@@ -77,7 +77,7 @@ Every lab states its source and limits on the page. All numbers live in
 `lab-models.js`; update a table only together with its vintage and qualifications.
 
 **Lab 01, Multi-GPU Similarity Engine**
-([restaurant_recomendation_engine_study](https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study)).
+([restaurant_recommendation_engine_study](https://github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study)).
 One historical table from the “A third regime: PCIe with P2P” section in
 `docs/analysis.md`: communication shares 11.6 / 76.0 / 91.1%, packed iteration-time
 reductions 4.7 / 23.5 / 55.5%, and async iteration-time changes +19.3 / +9.7 / −4.3%.

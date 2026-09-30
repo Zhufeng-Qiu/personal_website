@@ -368,7 +368,7 @@ description: Recorded multi-GPU results, an illustrative model, and the lossless
   </details>
   <p>
     Recorded snapshot: the three-regime table in
-    <a href="https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study/blob/main/docs/analysis.md">analysis.md</a> (September 2026
+    <a href="https://github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study/blob/main/docs/analysis.md">analysis.md</a> (September 2026
     measurement audit). Communication shares 11.6 / 76.0 / 91.1%; packed time reductions 4.7 / 23.5 / 55.5%; async time changes +19.3 / +9.7 / −4.3%.
     Figures belong to that table, not the later README headline results. Hosts used comparable builds, <em>not a verified identical binary</em>, and
     PCIe figures predate warp packing. These are configurations, not a controlled interconnect-only comparison.
@@ -376,13 +376,13 @@ description: Recorded multi-GPU results, an illustrative model, and the lossless
   <p>
     The PCIe SYS +9.7% result predates moving finalize off the communication stream. Later traces identify that scheduling choice as important, and
     later runs do not support a universal “async loses” conclusion. Read the
-    <a href="https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study/blob/main/docs/claim_ledger_20260917.md">current claim ledger</a>
+    <a href="https://github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study/blob/main/docs/claim_ledger_20260917.md">current claim ledger</a>
     for the revised scope.
   </p>
   <p>
     Payload is the AllReduce input representation: 48 → 16 bytes per item pair (56.2 → 18.7 MB across item_full), not a measured network-wire byte
     counter. The packing demo uses simulated ratings with the real layout and dataset bounds from the
-    <a href="https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study/blob/main/docs/pearson_contract.md">Pearson contract §§9–10</a>;
+    <a href="https://github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study/blob/main/docs/pearson_contract.md">Pearson contract §§9–10</a>;
     this browser packs and adds with BigInt, not on a GPU. The documented fixture result <code>max_abs_diff = 0.0</code> is a numerical-equality
     check, not a bit-for-bit comparison of floating-point output.
   </p>

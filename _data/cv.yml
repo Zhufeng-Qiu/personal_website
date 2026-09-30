@@ -159,7 +159,7 @@ cv:
           - Submitted a fix for Fun-ASR’s language-dependent context-budget error to restore 30-second English audio admission; added multilingual regression tests and validated the fix on an RTX 4090.
 
       - name: Multi-GPU Similarity Engine — Lossless Collective Compression & Overlap
-        url: https://github.com/Zhufeng-Qiu/restaurant_recomendation_engine_study
+        url: https://github.com/Zhufeng-Qiu/restaurant_recommendation_engine_study
         start_date: 2026-07
         end_date: 2026-08
         summary: "C++, CUDA, NCCL, MPI, OpenMP, PySpark, CMake, Nsight Systems — extension of USC INF 553 Data Mining / CSCI 596 Scientific Computing projects"
